@@ -1,0 +1,18 @@
+:root {
+    --primary: ;
+    --primary-alt: ;
+    --secondary: ;
+    --secondary-alt: ;
+    --background: rgb(34, 34, 34);
+    --background-alt: ;
+    --text: rgb(255, 255, 255);
+    --text-alt: ;
+}
+
+.navbutton {
+    border-radius: 0%;
+}
+
+.slidebutton {
+    aspect-ratio: 16 / 9;
+}
