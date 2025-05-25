@@ -1,3 +1,33 @@
+// Get current playlist uuid
+async function getCurrentPlaylistUUID() {
+    try {
+        const objResponse = await fetch("http://"+strRemoteIP+":"+intRemotePort+"/v1/playlist/active")
+        if(!objResponse.ok) {
+            throw new Error(`HTTP Error Status: ${objResponse.status}`)
+        }
+        const objData = await objResponse.json()
+        return objData.presentation.playlist.uuid
+    } catch(objError) {
+        console.error("Error fetching current playlist uuid: ", objError)
+        return null
+    }
+}
+
+// Get current playlist uuid
+async function getCurrentPresentationIndex() {
+    try {
+        const objResponse = await fetch("http://"+strRemoteIP+":"+intRemotePort+"/v1/playlist/active")
+        if(!objResponse.ok) {
+            throw new Error(`HTTP Error Status: ${objResponse.status}`)
+        }
+        const objData = await objResponse.json()
+        return objData.presentation.item.index
+    } catch(objError) {
+        console.error("Error fetching current playlist uuid: ", objError)
+        return null
+    }
+}
+
 // Get current presentation uuid
 async function getCurrentPresentationUUID() {
     try {
@@ -9,7 +39,7 @@ async function getCurrentPresentationUUID() {
         return objData.presentation.id.uuid
     } catch(objError) {
         console.error("Error fetching current presentation uuid: ", objError)
-        return ""
+        return null
     }
 }
 
@@ -24,7 +54,7 @@ async function getCurrentSlideIndex() {
         return objData2.presentation_index.index
     } catch(objError) {
         console.error("Error fetching current slide index: ", objError)
-        return -1
+        return null
     }
 }
 
@@ -43,7 +73,7 @@ async function getNextSlideThumbnailUrl(intWidth) {
 
     } catch(objError) {
         console.error("Error fetching active slide information: ", objError)
-        return ""
+        return null
     }
 }
 
@@ -62,7 +92,31 @@ async function getPrevSlideThumbnailUrl(intWidth) {
 
     } catch(objError) {
         console.error("Error fetching active slide information: ", objError)
-        return ""
+        return null
+    }
+}
+
+// Retrieves the name of the next presentation
+async function getPresentationNameByOffset(intIndexOffset) {
+    try {
+        const strPlaylistUUID = await getCurrentPlaylistUUID()
+        const intIndex = await getCurrentPresentationIndex() + intIndexOffset
+        const objResponse = await fetch("http://"+strRemoteIP+":"+intRemotePort+"/v1/playlist/" + strPlaylistUUID)
+        if(!objResponse.ok) {
+            throw new Error(`HTTP Error Status: ${objResponse.status}`)
+        }
+        const objData = await objResponse.json()
+        let strNextPresentationName = null
+        console.log(objData)
+        objData.items.forEach(element => {
+            if(element.id.index == intIndex) {
+                strNextPresentationName = element.id.name
+            }
+        });
+        return strNextPresentationName
+    } catch(objError) {
+        console.error("Error fetching next presentation name: ", objError)
+        return null
     }
 }
 
@@ -87,5 +141,29 @@ async function goToPrevSlide() {
         }
     } catch(objError) {
         console.error("Error fetching previous slide trigger: ", objError)
+    }
+}
+
+// Go to the next presentation
+async function goToNextPresentation() {
+    try {
+        const objResponse = await fetch("http://"+strRemoteIP+":"+intRemotePort+"/v1/playlist/focused/next/trigger")
+        if(!objResponse.ok) {
+            throw new Error(`HTTP Error Status: ${objResponse.status}`)
+        }
+    } catch(objError) {
+        console.error("Error fetching next presentation trigger: ", objError)
+    }
+}
+
+// Go to the previous presentation
+async function goToPrevPresentation() {
+    try {
+        const objResponse = await fetch("http://"+strRemoteIP+":"+intRemotePort+"/v1/playlist/focused/previous/trigger")
+        if(!objResponse.ok) {
+            throw new Error(`HTTP Error Status: ${objResponse.status}`)
+        }
+    } catch(objError) {
+        console.error("Error fetching previous presentation trigger: ", objError)
     }
 }

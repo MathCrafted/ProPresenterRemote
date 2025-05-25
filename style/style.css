@@ -1,18 +1,102 @@
 :root {
-    --primary: ;
-    --primary-alt: ;
-    --secondary: ;
+    --primary: rgb(104, 104, 104);
+    --primary-alt: rgb(85, 85, 85);
+    --secondary: rgb(18, 18, 18);
     --secondary-alt: ;
-    --background: rgb(34, 34, 34);
-    --background-alt: ;
-    --text: rgb(255, 255, 255);
+    --background: rgb(30, 30, 30);
+    --background-alt: rgb(51, 51, 51);
+    --text: rgb(235, 242, 235);
     --text-alt: ;
 }
 
-.navbutton {
-    border-radius: 0%;
+button.btn-link{
+    color: var(--text);
 }
 
-.slidebutton {
-    aspect-ratio: 16 / 9;
+/* Nav Bar */
+.navbutton {
+    border-radius: 0%;
+    border-style: solid;
+    border-color: var(--secondary);
+    border-width: 0px 0px 0.5rem;
+    background-color: var(--secondary);
+}
+
+.navbutton.present:hover {
+    border-radius: 0%;
+    border-style: solid;
+    border-color: crimson;
+    border-width: 0px 0px 0.5rem;
+    background-color: rgb(154, 15, 43);
+}
+.navbutton.present:active {
+    border-radius: 0%;
+    border-style: solid;
+    border-color: crimson;
+    border-width: 0px 0px 0.5rem;
+    background-color: rgb(154, 15, 43);
+}
+
+.navbutton.stage:hover {
+    border-radius: 0%;
+    border-style: solid;
+    border-color: darkorange;
+    border-width: 0px 0px 0.5rem;
+    background-color: rgb(150, 82, 0);
+}
+.navbutton.stage:active {
+    border-radius: 0%;
+    border-style: solid;
+    border-color: darkorange;
+    border-width: 0px 0px 0.5rem;
+    background-color: rgb(150, 82, 0);
+}
+
+.navbutton.settings:hover {
+    border-radius: 0%;
+    border-style: solid;
+    border-color: green;
+    border-width: 0px 0px 0.5rem;
+    background-color: darkgreen;
+}
+.navbutton.settings:active {
+    border-radius: 0%;
+    border-style: solid;
+    border-color: green;
+    border-width: 0px 0px 0.5rem;
+    background-color: darkgreen;
+}
+
+.navbutton.disabled {
+    border-radius: 0%;
+    border-style: solid;
+    border-color: var(--primary);
+    border-width: 0px 0px 0.5rem;
+    background-color: var(--primary-alt);
+}
+
+/* Slide Buttons */
+button.slidebutton {
+    background-color: black;
+    /* width: 400px; */
+    /* aspect-ratio: 16 / 10; */
+    border-radius: 2px;
+    border-style: solid;
+    border-width: 2px;
+    border-color: #086db6;
+}
+button.slidebutton:hover {
+    background-color: black;
+    border-color: #086db6;
+}
+button.slidebutton:focus {
+    background-color: black;
+    border-color: #086db6;
+}
+
+button.slidebutton.active {
+    outline-width: 3px;
+    outline-offset: 3px;
+    outline-color: #d97620;
+    outline-style: solid;
 }
